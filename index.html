@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nicolás &amp; Liz · 7 de diciembre</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Con mucha alegría queremos compartir contigo el día de nuestra boda. Lunes 7 de diciembre de 2026, La Marqueza.">
+
+<!-- ========== OPEN GRAPH (vista previa en WhatsApp) ==========
+     Cambiar og:image por la URL pública de una imagen 1200×630 px -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nicolás & Liz · Nos casamos">
+<meta property="og:description" content="Lunes 7 de diciembre de 2026 · La Marqueza. Te esperamos para celebrar nuestro amor.">
+<meta property="og:image" content="vista-previa.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="theme-color" content="#3E1820">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Mulish:wght@400;600&display=swap">
+
+<style>
+/* Layout: columna de paneles verticales tipo "tarjetería" (sobre → nombres → fecha → cuenta → lugar → itinerario → detalles → fotos → RSVP → arco final). Portada = sobre verde con sello de lacre. */
+:root{
+  /* ---- Paleta (tomada de la referencia: vino, terciopelo, crema y oro) ---- */
+  --vino-osc:#3E1820;   /* sobre y paneles oscuros */
+  --vino:#5A2430;       /* títulos y paneles */
+  --terciopelo:#6E1F2C; /* moños, botones */
+  --rosa-tierra:#8C5E58;/* dibujos de línea y etiquetas */
+  --malva:#C2ADA3;      /* arcos y fondos suaves */
+  --beige:#E8DBCC;      /* paneles claros */
+  --papel:#F5EDE3;      /* crema */
+  --oro:#C9A55C;        /* lacre y marco dorado */
+  --oro-osc:#8E6F2E;
+  --oro-claro:#E8CF95;
+  --tinta:#3A2226;
+  --tinta-suave:#6B5753;
+  --crema-suave:#E3D2C6;/* texto suave sobre vino */
+  --linea:rgba(90,36,48,.25);
+
+  /* ---- Tipografía ---- */
+  --f-titulo:"Playfair Display SC","Georgia",serif;
+  --f-nombres:"Playfair Display","Georgia",serif;
+  --f-body:"Mulish","Segoe UI",system-ui,-apple-system,sans-serif;
+
+  --panel:27rem;
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;color:var(--tinta);font:17px/1.6 var(--f-body);
+  background:var(--vino-osc);
+  background-image:radial-gradient(ellipse at 50% 0%, #5A2430 0%, var(--vino-osc) 70%);
+  -webkit-font-smoothing:antialiased;
+}
+body.cerrado{overflow:hidden}
+img{max-width:100%;display:block}
+a{color:var(--terciopelo)}
+:focus-visible{outline:2px solid var(--oro);outline-offset:3px;border-radius:4px}
+svg{display:block}
+
+/* Contenedor de paneles */
+.paneles{
+  max-width:var(--panel);margin:0 auto;
+  padding-left:max(0px, env(safe-area-inset-left,0px));
+  padding-right:max(0px, env(safe-area-inset-right,0px));
+  padding-block:0 3rem;
+}
+@media (min-width:30rem){
+  .paneles{padding-block:2.5rem 4rem}
+  .panel{box-shadow:0 18px 40px rgba(0,0,0,.25)}
+}
+.panel{
+  position:relative;overflow:hidden;text-align:center;
+  padding:3.5rem max(22px, env(safe-area-inset-right,0px)) 3.5rem max(22px, env(safe-area-inset-left,0px));
+  background:var(--beige);
+}
+.panel.claro{background:var(--papel)}
+.panel.oscuro{background:var(--vino);color:var(--papel)}
+.panel + .panel{border-top:1px solid rgba(90,36,48,.12)}
+
+.titulo{
+  font-family:var(--f-titulo);font-weight:400;font-size:1.9rem;letter-spacing:.04em;
+  line-height:1.15;margin:0 0 1rem;color:var(--vino);text-wrap:balance;
+}
+.oscuro .titulo{color:var(--papel)}
+.sub{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rosa-tierra);margin:0 0 .5rem;font-weight:600}
+.oscuro .sub,.p-nombres .sub{color:var(--oro-claro)}
+p{margin:0 0 1rem}
+.suave{color:var(--tinta-suave)}
+.oscuro .suave{color:var(--crema-suave)}
+.corazon{width:10px;height:10px;margin:.9rem auto;color:var(--terciopelo)}
+.oscuro .corazon{color:var(--oro-claro)}
+
+/* Moño de terciopelo (SVG reutilizable) */
+.mono{width:54px;height:34px;margin:0 auto;color:var(--terciopelo)}
+.mono.grande{width:110px;height:70px}
+
+/* ===================== SOBRE (pantalla de apertura) ===================== */
+.sobre{
+  position:fixed;inset:0;z-index:50;display:grid;place-items:center;
+  background:var(--vino-osc);overflow:hidden;
+  transition:transform 1.1s cubic-bezier(.7,0,.3,1), opacity 1.1s ease;
+}
+.sobre .textura{position:absolute;inset:0;width:100%;height:100%}
+.sobre .solapa{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.sobre-centro{position:relative;display:grid;justify-items:center;gap:1.25rem;padding:1rem;text-align:center;color:var(--papel)}
+.sobre .para{font-family:var(--f-nombres);font-style:italic;font-size:1.15rem;color:var(--oro-claro);min-height:1.5em;margin:0}
+.sello{
+  width:132px;height:132px;border:0;padding:0;background:none;cursor:pointer;border-radius:50%;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,.45));transition:transform .3s;
+}
+.sello:hover{transform:scale(1.04)}
+.sello svg{width:100%;height:100%}
+.sobre .toca{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--crema-suave);margin:0}
+.sobre.abierto{transform:translateY(-100%);opacity:0;pointer-events:none}
+.sobre.abierto .sello{transform:scale(.85) rotate(-12deg)}
+
+/* ===================== PANEL NOMBRES (marco de encaje) ===================== */
+.p-nombres{background:var(--vino-osc);color:var(--papel);padding-block:4rem}
+.p-nombres .textura{position:absolute;inset:0;width:100%;height:100%}
+.encaje{position:relative;width:min(300px,82vw);margin:0 auto;aspect-ratio:3/4;max-width:100%}
+.encaje svg.marco{position:absolute;inset:0;width:100%;height:100%}
+.encaje .dentro{
+  position:absolute;inset:0;display:grid;place-content:center;gap:.2rem;color:var(--vino);padding:3rem;
+}
+.encaje .nombres{font-family:var(--f-titulo);font-size:2.3rem;line-height:1.05;margin:0;letter-spacing:.03em}
+.encaje .amp{font-family:var(--f-nombres);font-style:italic;font-size:1.6rem;color:var(--rosa-tierra)}
+.encaje .mono{position:absolute;left:50%;transform:translateX(-50%);width:58px}
+.encaje .mono.arriba{top:6%}
+.encaje .mono.abajo{bottom:5%}
+.cita{position:relative;margin:.75rem 0 0;font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--oro-claro)}
+.frase{
+  position:relative;font-family:var(--f-nombres);font-style:italic;font-size:1.2rem;line-height:1.45;
+  max-width:19rem;margin:2.25rem auto 0;color:var(--crema-suave);text-wrap:balance;
+}
+.btn-musica{
+  position:fixed;z-index:40;
+  right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  width:48px;height:48px;border-radius:50%;border:1px solid rgba(232,207,149,.6);background:var(--vino-osc);
+  color:var(--oro-claro);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(40,15,20,.35);
+}
+.btn-musica svg{width:18px;height:18px}
+.btn-musica .ic-off{display:none}
+.btn-musica.mudo .ic-on{display:none}
+.btn-musica.mudo .ic-off{display:block}
+
+/* ===================== PANEL FECHA (calendario) ===================== */
+.p-fecha{background:var(--papel)}
+.p-fecha .ramas{position:absolute;inset:0;width:100%;height:100%;color:var(--rosa-tierra);opacity:.35}
+.arco-cal{
+  position:relative;margin:0 auto;width:min(270px,100%);background:var(--malva);
+  border-radius:140px 140px 18px 18px;padding:3.2rem 1.1rem 1.6rem;
+}
+.arco-cal .mono{position:absolute;top:-16px;left:50%;transform:translateX(-50%)}
+.arco-cal .titulo{font-size:1.5rem;margin:0}
+.fecha-num{font-family:var(--f-titulo);font-size:1.9rem;color:var(--vino);letter-spacing:.06em;margin:.15rem 0 .1rem}
+.mes{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rosa-tierra);margin:0 0 .6rem}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:.15rem;font-size:.78rem;font-variant-numeric:tabular-nums}
+.cal span{display:grid;place-items:center;aspect-ratio:1;color:var(--tinta)}
+.cal .dow{font-weight:600;color:var(--rosa-tierra);font-size:.68rem}
+.cal .fuera{opacity:.3}
+.cal .dia-boda{
+  position:relative;color:var(--papel);font-weight:600;
+}
+.cal .dia-boda::before{
+  content:"";position:absolute;inset:-1px;border-radius:50%;background:var(--terciopelo);z-index:-1;
+}
+.cal .dia-boda{z-index:0}
+
+/* ===================== PANEL CUENTA REGRESIVA (marco dorado) ===================== */
+.p-cuenta{background:#DDD1C3}
+.oval .titulo{color:var(--papel)}
+.oval .cuenta{color:var(--papel)}
+.oval .cuenta small,.oval .cuenta i{color:var(--oro-claro)}
+.oval .corazon{color:var(--oro)}
+.flor-crema{
+  position:absolute;left:-12%;bottom:2%;width:62%;height:auto;
+  filter:drop-shadow(0 10px 12px rgba(40,15,20,.35));
+}
+.oval{position:relative;width:min(270px,78vw);aspect-ratio:3/4;margin:0 auto;max-width:100%}
+.oval > svg:first-child{position:absolute;inset:0;width:100%;height:100%}
+.oval .dentro{position:absolute;inset:0;display:grid;place-content:center;padding:2rem}
+.oval .titulo{font-size:1.45rem;margin:0 0 .6rem}
+.cuenta{display:flex;justify-content:center;gap:.2rem;font-family:var(--f-titulo);color:var(--vino)}
+.cuenta div{display:grid;justify-items:center;min-width:2.3rem}
+.cuenta b{font-weight:400;font-size:1.45rem;line-height:1;font-variant-numeric:tabular-nums}
+.cuenta small{font-family:var(--f-body);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rosa-tierra);margin-top:.3rem}
+.cuenta i{font-style:normal;font-size:1.3rem;line-height:1.1;color:var(--rosa-tierra)}
+
+/* ===================== BOTONES ===================== */
+.botones{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1.5rem}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;
+  padding:.7rem 1.3rem;border-radius:999px;font:600 .82rem/1 var(--f-body);letter-spacing:.12em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;border:1.5px solid var(--terciopelo);
+  transition:background .2s,color .2s;
+}
+.btn svg{width:17px;height:17px;flex:none}
+.btn-lleno{background:var(--terciopelo);color:var(--papel)}
+.btn-lleno:hover{background:var(--vino);border-color:var(--vino)}
+.btn-borde{background:transparent;color:var(--terciopelo)}
+.btn-borde:hover{background:var(--terciopelo);color:var(--papel)}
+.oscuro .btn-lleno{background:var(--papel);color:var(--vino);border-color:var(--papel)}
+.oscuro .btn-lleno:hover{background:var(--oro-claro);border-color:var(--oro-claro)}
+
+/* ===================== PANEL LUGAR ===================== */
+.p-lugar{padding-bottom:0}
+.farol{width:90px;height:96px;margin:0 auto 1rem;color:var(--oro-claro)}
+.direccion{display:flex;gap:.5rem;justify-content:center;align-items:flex-start;font-size:.95rem;max-width:20rem;margin:0 auto}
+.direccion svg{width:18px;height:18px;flex:none;margin-top:.2rem;color:var(--oro-claro)}
+.pendiente{color:#F0B48E}
+.claro .pendiente,.p-fecha .pendiente{color:#9A4B2E}
+.arco-mapa{
+  margin:2rem auto 0;width:min(320px,100%);aspect-ratio:1;max-width:100%;
+  border-radius:50% 50% 0 0;overflow:hidden;background:#4A1E28;
+  display:grid;place-items:center;padding:2rem;font-size:.9rem;color:var(--crema-suave);
+}
+.arco-mapa iframe{width:100%;height:100%;border:0}
+.arco-mapa.con-mapa{padding:0}
+.borde-encaje{display:block;width:100%;height:18px;color:var(--beige);margin-top:-1px}
+
+/* ===================== PANEL ITINERARIO ===================== */
+.itin{display:grid;gap:.4rem;justify-items:center}
+.hito .hora{font-family:var(--f-titulo);font-size:1.75rem;color:var(--vino);margin:0;letter-spacing:.03em}
+.hito .hora small{font-size:.9rem}
+.hito p{margin:0;font-size:.95rem;color:var(--tinta-suave)}
+.dibujo{width:90px;height:90px;margin:.5rem auto;color:var(--rosa-tierra)}
+
+/* ===================== PANEL DETALLES ===================== */
+.detalles{display:grid;gap:1.75rem;text-align:center}
+.detalle h3{font-family:var(--f-titulo);font-weight:400;font-size:1.25rem;margin:0 0 .3rem;color:var(--vino);letter-spacing:.04em}
+.detalle p{margin:0;color:var(--tinta-suave);max-width:21rem;margin-inline:auto}
+.paleta{display:flex;gap:.45rem;justify-content:center;margin-top:.8rem}
+.paleta i{width:24px;height:24px;border-radius:50%;border:1px solid var(--linea)}
+.sep{width:60px;height:1px;background:var(--linea);margin:0 auto}
+
+/* ===================== PANEL FOTOS ===================== */
+.galeria{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.25rem}
+.galeria figure{margin:0}
+.galeria figure:nth-child(2){margin-top:2.2rem}
+.foto{
+  position:relative;aspect-ratio:4/5;max-width:100%;border-radius:999px 999px 10px 10px;overflow:hidden;
+  background:var(--malva);border:5px solid var(--papel);outline:1px solid var(--linea);
+}
+.foto img{width:100%;height:100%;object-fit:cover}
+.foto.sin-foto img{display:none}
+.foto .ph{position:absolute;inset:0;display:none;place-items:center;padding:.75rem;font-size:.75rem;line-height:1.4;color:var(--rosa-tierra)}
+.foto.sin-foto .ph{display:grid}
+
+/* ===================== PANEL RSVP ===================== */
+.limite{
+  display:inline-block;font-family:var(--f-titulo);font-size:1.3rem;color:var(--terciopelo);
+  border:1px solid var(--linea);border-radius:999px;padding:.5rem 1.2rem;margin:.25rem 0 1rem;
+}
+.cupos{font-weight:600;color:var(--vino)}
+
+/* ===================== CIERRE (arco) ===================== */
+.p-cierre{background:var(--papel);padding-bottom:0}
+.arco-final{
+  position:relative;margin:0 auto;width:min(300px,100%);background:var(--vino);color:var(--papel);
+  border-radius:150px 150px 0 0;padding:3.5rem 1.5rem 2.5rem;overflow:hidden;
+}
+.arco-final .titulo{position:relative;color:var(--papel);font-size:1.45rem}
+.arco-final p{position:relative}
+.anillos{position:relative;width:150px;height:40px;margin:.5rem auto 0;color:var(--oro-claro)}
+.frase-cierre{position:relative;font-family:var(--f-nombres);font-style:italic;font-size:1.05rem;color:var(--oro-claro)}
+.firma{position:relative;font-family:var(--f-nombres);font-style:italic;font-size:1.25rem;color:var(--oro-claro);margin:1rem 0 0}
+
+.aviso{
+  position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;
+  background:var(--vino);color:var(--papel);padding:.6rem 1rem;border-radius:999px;font-size:.9rem;
+}
+
+
+/* ===================== TEXTURAS ===================== */
+/* Terciopelo: vetas verticales + brillo suave, sobre el color de fondo del panel */
+.tx-terciopelo{
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(255,210,210,.07), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .9 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.018 0.045' numOctaves='4' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .42 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23v)'/%3E%3C/svg%3E");
+}
+/* Papel de algodón: grano fino */
+.tx-papel{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .2 0 0 0 0 .15 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+
+/* ===================== ANIMACIONES ===================== */
+.anim .reveal{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease}
+.anim .reveal.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .sobre{transition:opacity .3s}
+  .sobre.abierto{transform:none}
+  .anim .reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body class="cerrado">
+
+<!-- ========== Símbolos SVG reutilizables ========== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- Moño de terciopelo -->
+    <symbol id="moño" viewBox="0 0 110 70">
+      <path d="M55 30C44 14 22 4 10 10c-8 5-6 22 6 26 13 4 28-1 39-6z" fill="currentColor"/>
+      <path d="M55 30C66 14 88 4 100 10c8 5 6 22-6 26-13 4-28-1-39-6z" fill="currentColor"/>
+      <path d="M52 32c-6 10-14 24-20 36l9-2 4 4c4-12 8-24 9-36z" fill="currentColor" opacity=".85"/>
+      <path d="M58 32c6 10 14 24 20 36l-9-2-4 4c-4-12-8-24-9-36z" fill="currentColor" opacity=".85"/>
+      <ellipse cx="55" cy="30" rx="8" ry="7" fill="currentColor"/>
+      <path d="M20 14c8-2 20 4 30 13M90 14c-8-2-20 4-30 13" stroke="#fff" stroke-opacity=".18" stroke-width="2" fill="none"/>
+      <ellipse cx="53" cy="28" rx="3" ry="2" fill="#fff" opacity=".18"/>
+    </symbol>
+    <!-- Magnolia en línea (base para relieve y flor crema) -->
+    <symbol id="magnolia" viewBox="0 0 200 210" overflow="visible">
+      <path d="M100 120C80 90 78 60 96 38c8 22 12 52 4 82z"/>
+      <path d="M100 120C70 108 46 84 48 56c22 8 42 34 52 64z"/>
+      <path d="M100 120c30-12 54-36 52-64-22 8-42 34-52 64z"/>
+      <path d="M100 122c-30 8-60 2-74-18 24-8 52 0 74 18z"/>
+      <path d="M100 122c30 8 60 2 74-18-24-8-52 0-74 18z"/>
+      <path d="M92 112c4-6 12-6 16 0M95 116c3-3 7-3 10 0"/>
+      <path d="M100 124c-4 26-16 52-40 78"/>
+      <path d="M90 158c-30-10-54 0-64 20 24 6 50-2 64-20zM58 168c-10 2-20 6-30 10"/>
+      <path d="M82 178c16-8 40-4 50 12-20 6-40 2-50-12zM96 182c10 2 22 4 34 8"/>
+      <path d="M152 30c-10-20 0-34 14-40 4 18-2 32-14 40zM152 30c-8 30-28 50-46 70"/>
+    </symbol>
+    <symbol id="cor" viewBox="0 0 10 10"><path d="M5 9L1.2 5.2A2.2 2.2 0 0 1 5 2.3a2.2 2.2 0 0 1 3.8 2.9z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===================== SOBRE ===================== -->
+<div class="sobre tx-terciopelo" id="sobre" role="dialog" aria-label="Invitación cerrada">
+  <svg class="textura" aria-hidden="true">
+    <defs>
+      <pattern id="hojas" width="380" height="460" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+          <!-- sombra -->
+          <g stroke="rgba(0,0,0,.42)" transform="translate(1.4 1.6)">
+            <use href="#magnolia" width="260" height="273" x="-40" y="-20"/>
+            <use href="#magnolia" width="220" height="231" transform="translate(380 200) rotate(155)"/>
+            <use href="#magnolia" width="200" height="210" transform="translate(150 470) rotate(-150)"/>
+          </g>
+          <!-- luz -->
+          <g stroke="rgba(255,200,205,.12)" transform="translate(-1 -1)">
+            <use href="#magnolia" width="260" height="273" x="-40" y="-20"/>
+            <use href="#magnolia" width="220" height="231" transform="translate(380 200) rotate(155)"/>
+            <use href="#magnolia" width="200" height="210" transform="translate(150 470) rotate(-150)"/>
+          </g>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#hojas)"/>
+  </svg>
+  <svg class="solapa" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 0L50 52L100 0" fill="rgba(0,0,0,.12)" stroke="rgba(201,165,92,.35)" stroke-width=".25" vector-effect="non-scaling-stroke"/>
+    <path d="M0 100L50 52L100 100" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  </svg>
+  <div class="sobre-centro">
+    <p class="para" id="para-sobre"></p>
+    <button class="sello" id="sello" type="button" aria-label="Abrir la invitación">
+      <svg viewBox="0 0 140 140">
+        <defs>
+          <radialGradient id="lacre" cx="40%" cy="35%" r="70%">
+            <stop offset="0" stop-color="#F1D894"/><stop offset=".55" stop-color="#C9A55C"/><stop offset="1" stop-color="#8E6F2E"/>
+          </radialGradient>
+        </defs>
+        <path d="M70 6c12 0 18 6 28 9s18 6 23 16 4 18 7 28 3 20-3 29-12 14-19 21-14 13-26 14-20-1-30-5-19-8-25-17-7-18-9-28-2-21 4-30 12-12 20-20S58 6 70 6z" fill="url(#lacre)"/>
+        <circle cx="70" cy="70" r="44" fill="none" stroke="#8E6F2E" stroke-width="2.5" opacity=".7"/>
+        <circle cx="70" cy="70" r="40" fill="none" stroke="#F1D894" stroke-width="1" opacity=".6"/>
+        <g fill="none" stroke="#7A5D22" stroke-width="2" stroke-linecap="round">
+          <path d="M70 98V46"/>
+          <path d="M70 56c-8-6-14-5-17-2 4 5 11 6 17 2zM70 56c8-6 14-5 17-2-4 5-11 6-17 2z"/>
+          <path d="M70 70c-9-6-16-5-19-2 4 6 12 7 19 2zM70 70c9-6 16-5 19-2-4 6-12 7-19 2z"/>
+          <path d="M70 84c-8-5-14-4-16-1 4 5 10 6 16 1zM70 84c8-5 14-4 16-1-4 5-10 6-16 1z"/>
+        </g>
+        <text x="46" y="105" font-family="Playfair Display, Georgia, serif" font-style="italic" font-size="14" fill="#7A5D22">N</text>
+        <text x="86" y="105" font-family="Playfair Display, Georgia, serif" font-style="italic" font-size="14" fill="#7A5D22">L</text>
+      </svg>
+    </button>
+    <p class="toca">Toca el sello para abrir</p>
+  </div>
+</div>
+
+<main class="paneles">
+
+  <!-- ===================== NOMBRES ===================== -->
+  <section class="panel p-nombres tx-terciopelo" aria-label="Nicolás y Liz">
+    <svg class="textura" aria-hidden="true"><rect width="100%" height="100%" fill="url(#hojas)"/></svg>
+    <p class="sub" style="position:relative">Nos casamos</p>
+    <div class="encaje">
+      <svg class="marco" id="marco-encaje" viewBox="0 0 300 400" aria-hidden="true"></svg>
+      <div class="dentro">
+        <h1 class="nombres">Nicolás</h1>
+        <span class="amp">&amp;</span>
+        <p class="nombres">Liz</p>
+      </div>
+    </div>
+    <p class="frase">“Así que no son ya más dos, sino una sola carne; por tanto, lo que Dios juntó, no lo separe el hombre.”</p>
+    <p class="cita">Mateo 19:6</p>
+  </section>
+
+  <!-- ===================== FECHA ===================== -->
+  <section class="panel p-fecha reveal tx-papel">
+    <svg class="ramas" viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.3">
+        <path d="M-10 120C60 140 90 210 70 300S90 450 160 540"/>
+        <path d="M70 300c-30-10-60 0-70 20M80 220c30-20 60-20 80 0M60 400c-30 10-50 40-50 70"/>
+        <path d="M410 60C340 100 320 180 340 260s-20 180-80 270"/>
+        <path d="M340 260c30-10 55 5 65 25M330 160c-30-15-60-10-75 10M300 420c30 0 55 20 65 50"/>
+        <path d="M110 40c20 30 60 40 90 30M250 500c-10-30 10-60 40-70"/>
+      </g>
+    </svg>
+    <div class="arco-cal">
+      <svg class="mono" viewBox="0 0 110 70" aria-hidden="true"><use href="#moño"/></svg>
+      <h2 class="titulo">Fecha</h2>
+      <p class="fecha-num">07.12.2026</p>
+      <p class="mes">Diciembre 2026</p>
+      <div class="cal" id="cal" aria-label="Calendario de diciembre de 2026, marcado el lunes 7"></div>
+    </div>
+  </section>
+
+  <!-- ===================== CUENTA REGRESIVA ===================== -->
+  <section class="panel p-cuenta reveal">
+    <div class="oval">
+      <svg viewBox="0 0 280 373" aria-hidden="true">
+        <defs>
+          <filter id="tercio-f" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="4" seed="5"/>
+            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0"/>
+            <feComposite in2="SourceAlpha" operator="in"/>
+          </filter>
+          <radialGradient id="brillo" cx="35%" cy="25%" r="70%">
+            <stop offset="0" stop-color="#8A3442"/><stop offset=".6" stop-color="#5A2430"/><stop offset="1" stop-color="#3E1820"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="140" cy="186" rx="128" ry="170" fill="url(#brillo)"/>
+        <ellipse cx="140" cy="186" rx="128" ry="170" fill="#000" filter="url(#tercio-f)"/>
+        <ellipse cx="140" cy="186" rx="116" ry="158" fill="none" stroke="#C9A55C" stroke-width="1" opacity=".7"/>
+      </svg>
+      <div class="dentro">
+        <h2 class="titulo">Faltan</h2>
+        <div class="cuenta" role="timer">
+          <div><b id="d">--</b><small>días</small></div><i>:</i>
+          <div><b id="h">--</b><small>hrs</small></div><i>:</i>
+          <div><b id="m">--</b><small>min</small></div><i>:</i>
+          <div><b id="s">--</b><small>seg</small></div>
+        </div>
+        <svg class="corazon" viewBox="0 0 10 10" aria-hidden="true"><use href="#cor"/></svg>
+      </div>
+      <!-- Flor crema con borde dorado -->
+      <svg class="flor-crema" viewBox="-10 20 200 160" aria-hidden="true">
+        <defs>
+          <linearGradient id="petalo" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFFDF8"/><stop offset="1" stop-color="#E6DACB"/>
+          </linearGradient>
+          <filter id="brillo-oro" x="-10%" y="-10%" width="120%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="2" result="n"/>
+            <feColorMatrix in="n" values="0 0 0 0 .95  0 0 0 0 .82  0 0 0 0 .55  0 0 0 1.4 -.55" result="pts"/>
+            <feComposite in="pts" in2="SourceAlpha" operator="in" result="pts2"/>
+            <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="pts2"/></feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#brillo-oro)">
+          <path d="M100 122c-34 10-70 4-86-22 30-12 62-2 86 22zM100 122c34 10 70 4 86-22-30-12-62-2-86 22z" fill="#B99A68"/>
+          <path d="M100 120C66 110 40 84 40 50c28 8 50 36 60 70zM100 120c34-10 60-36 60-70-28 8-50 36-60 70z" fill="#C4A774"/>
+        </g>
+        <g stroke="#C9A55C" stroke-width=".8" fill="url(#petalo)">
+          <path d="M100 120C70 108 48 86 52 60c22 8 40 32 48 60z"/>
+          <path d="M100 120c30-12 52-34 48-60-22 8-40 32-48 60z"/>
+          <path d="M100 124c-28 6-54 0-66-16 22-8 46-2 66 16zM100 124c28 6 54 0 66-16-22-8-46-2-66 16z"/>
+          <path d="M100 122C82 92 80 62 96 38c8 22 12 54 4 84z"/>
+        </g>
+        <g stroke="#A8864A" stroke-width="1" fill="none" stroke-linecap="round">
+          <path d="M100 116c-6-14-10-26-8-38M100 116c4-14 10-24 18-30M100 116c0-14 2-26 6-36"/>
+        </g>
+        <g fill="#A8864A"><circle cx="92" cy="78" r="1.8"/><circle cx="118" cy="86" r="1.8"/><circle cx="106" cy="80" r="1.8"/></g>
+      </svg>
+    </div>
+    <div class="botones">
+      <a class="btn btn-borde" id="btn-gcal" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Google Calendar</a>
+      <button class="btn btn-borde" id="btn-ics" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Otro calendario</button>
+    </div>
+  </section>
+
+  <!-- ===================== LUGAR ===================== -->
+  <section class="panel oscuro p-lugar reveal tx-terciopelo">
+    <svg class="farol" viewBox="0 0 90 96" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+      <path d="M45 2v14M40 16h10M45 16v22"/>
+      <path d="M45 38c-14 0-26 4-30 10 4 6 16 8 30 8s26-2 30-8c-4-6-16-10-30-10z"/>
+      <path d="M15 48c0 10 8 18 18 20M75 48c0 10-8 18-18 20M45 56v18"/>
+      <path d="M18 30v12M45 26v8M72 30v12"/>
+      <path d="M16 26h4l-1 4h-2zM43 22h4l-1 4h-2zM70 26h4l-1 4h-2z"/>
+      <path d="M33 68c4 6 8 9 12 9s8-3 12-9"/>
+      <path d="M45 78v6M41 88l4-4 4 4-4 6z"/>
+      <path d="M22 56v6M68 56v6M30 58v8M60 58v8" stroke-dasharray="1 2"/>
+    </svg>
+    <h2 class="titulo">Ubicación</h2>
+    <p class="sub">La Marqueza</p>
+    <p class="direccion">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      <span id="direccion-txt" class="pendiente">[PENDIENTE: dirección y ciudad]</span>
+    </p>
+    <div class="botones">
+      <a class="btn btn-lleno" id="btn-maps" target="_blank" rel="noopener">Cómo llegar</a>
+    </div>
+    <div class="arco-mapa" id="mapa">El mapa aparecerá aquí cuando tengamos la ubicación exacta.</div>
+    <svg class="borde-encaje" viewBox="0 0 400 18" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 18V9" fill="currentColor"/>
+      <path id="festón" fill="currentColor" d=""/>
+    </svg>
+  </section>
+
+  <!-- ===================== ITINERARIO ===================== -->
+  <section class="panel reveal tx-papel">
+    <h2 class="titulo">Itinerario</h2>
+    <div class="itin">
+      <div class="hito">
+        <p class="hora">3:00 <small>p. m.</small></p>
+        <p>Ceremonia</p>
+      </div>
+      <!-- velas con moño (ceremonia) -->
+      <svg class="dibujo" viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+        <path d="M33 20c-3 4-3 8 0 10 3-2 3-6 0-10zM57 14c-3 4-3 8 0 10 3-2 3-6 0-10z" fill="currentColor" opacity=".55"/>
+        <path d="M30 32h6v46h-6zM54 26h6v52h-6z"/>
+        <path d="M26 78h14M50 78h14"/>
+        <path d="M36 52c6 2 12 2 18 0M45 52c-4 4-8 10-9 16M45 52c3 4 6 10 6 15"/>
+        <path d="M45 52c-5-4-10-4-12-1 3 3 8 3 12 1zM45 52c5-4 10-4 12-1-3 3-8 3-12 1z"/>
+      </svg>
+      <div class="hito">
+        <p class="hora">5:00 <small>p. m.</small></p>
+        <p>Recepción</p>
+      </div>
+      <!-- brindis -->
+      <svg class="dibujo" viewBox="0 0 90 90" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+        <path d="M24 26l16 4-3 20c-1 6-8 9-13 6-4-3-5-8-3-12z"/>
+        <path d="M66 26l-16 4 3 20c1 6 8 9 13 6 4-3 5-8 3-12z"/>
+        <path d="M31 57l-4 20M23 77h10M59 57l4 20M57 77h10"/>
+        <path d="M45 12v6M38 15l3 5M52 15l-3 5"/>
+        <path d="M23 36l15 4M67 36l-15 4" opacity=".6"/>
+      </svg>
+      <p class="suave" style="margin:0">Ceremonia y recepción en La Marqueza</p>
+    </div>
+  </section>
+
+  <!-- ===================== DETALLES ===================== -->
+  <section class="panel claro reveal tx-papel">
+    <h2 class="titulo">Para tener en cuenta</h2>
+    <div class="detalles">
+      <div class="detalle">
+        <h3>Vestimenta</h3>
+        <p>Formal. Estos son los tonos de nuestra boda, por si quieres inspirarte:</p>
+        <div class="paleta" aria-label="Vino, malva, beige, crema y dorado">
+          <i style="background:#5A2430"></i><i style="background:#C2ADA3"></i><i style="background:#E8DBCC"></i><i style="background:#F5EDE3"></i><i style="background:#C9A55C"></i>
+        </div>
+      </div>
+      <div class="sep"></div>
+      <div class="detalle">
+        <h3>Lluvia de sobres</h3>
+        <p>Tu presencia es nuestro mejor regalo. Si deseas tener un detalle con nosotros, habrá lluvia de sobres en la recepción.</p>
+      </div>
+      <div class="sep"></div>
+      <div class="detalle">
+        <h3>Solo adultos</h3>
+        <p>Hemos planeado esta noche pensando en adultos. Gracias por entenderlo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOTOS ===================== -->
+  <section class="panel reveal tx-papel">
+    <h2 class="titulo">Nosotros</h2>
+    <svg class="mono" viewBox="0 0 110 70" aria-hidden="true"><use href="#moño"/></svg>
+    <div class="galeria">
+      <figure><div class="foto"><img src="foto-1.jpg" alt="Nicolás y Liz, sesión de fotos antes de la boda" loading="lazy"><span class="ph">FOTO 1<br>foto-1.jpg<br>vertical 1080×1350</span></div></figure>
+      <figure><div class="foto"><img src="foto-2.jpg" alt="Nicolás y Liz juntos" loading="lazy"><span class="ph">FOTO 2<br>foto-2.jpg<br>vertical 1080×1350</span></div></figure>
+    </div>
+  </section>
+
+  <!-- ===================== RSVP ===================== -->
+  <section class="panel claro reveal tx-papel" id="confirmar">
+    <h2 class="titulo">Confirma tu asistencia</h2>
+    <p class="cupos" id="cupos-txt" hidden></p>
+    <p class="suave">Por favor confírmanos antes del</p>
+    <div class="limite">1 de diciembre</div>
+    <p class="suave">Así podremos preparar todo con cariño para ti.</p>
+    <div class="botones">
+      <a class="btn btn-lleno" id="btn-form" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Confirmar</a>
+    </div>
+    <svg class="mono grande" viewBox="0 0 110 70" aria-hidden="true" style="margin-top:2.5rem"><use href="#moño"/></svg>
+  </section>
+
+  <!-- ===================== CIERRE ===================== -->
+  <footer class="panel p-cierre tx-papel">
+    <div class="arco-final tx-terciopelo">
+      <h2 class="titulo">¡Te esperamos para celebrar!</h2>
+      <p style="color:var(--crema-suave)">Gracias por ser parte de nuestra historia.</p>
+      <p class="frase-cierre">Nuestro amor enciende las luces del cielo</p>
+      <svg class="anillos" viewBox="0 0 150 40" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <path d="M2 30c20 0 30-6 44-6"/>
+        <circle cx="64" cy="22" r="11"/><circle cx="80" cy="22" r="11"/>
+        <path d="M98 24c14 0 24 6 50 4"/>
+        <path d="M64 11l-3-4h6zM80 11l-3-4h6z" fill="currentColor"/>
+      </svg>
+      <p class="firma">Nicolás &amp; Liz</p>
+    </div>
+  </footer>
+</main>
+
+<button class="btn-musica mudo" id="btn-musica" type="button" aria-label="Reproducir música">
+  <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
+  <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17V6l10-2v11" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6.5" cy="17" r="2.5" fill="currentColor"/><circle cx="16.5" cy="15" r="2.5" fill="currentColor"/></svg>
+</button>
+<audio id="audio" src="cancion.mp3" loop preload="auto"></audio>
+<div class="aviso" id="aviso" hidden></div>
+
+<script>
+/* =========================================================
+   DATOS DEL EVENTO — editar aquí para cada cliente
+   ========================================================= */
+const EVENTO = {
+  titulo: "Boda de Nicolás & Liz",
+  inicioISO: "2026-12-07T15:00:00-05:00",
+  inicioUTC: "20261207T200000Z",
+  finUTC:    "20261208T040000Z",   // asumido: 11:00 p. m.
+  anio: 2026, mes: 11, dia: 7,     // mes en base 0 (11 = diciembre)
+  lugar: "La Marqueza",
+  direccion: "",                     // [PENDIENTE]
+  mapsUrl: "",                       // [PENDIENTE]
+  formularioUrl: ""                  // [PENDIENTE]
+};
+
+/* ---------- Personalización: ?para=Familia%20Pérez&cupos=2 ---------- */
+(function(){
+  const q = new URLSearchParams(location.search);
+  const para = (q.get("para") || "").trim().slice(0, 60);
+  const cupos = parseInt(q.get("cupos"), 10);
+  const plural = /familia| y |&|,/i.test(para);
+  document.getElementById("para-sobre").textContent = para ? (plural ? "Queridos " : "Para ") + para : "Una invitación para ti";
+  if (cupos > 0) {
+    const c = document.getElementById("cupos-txt");
+    c.textContent = cupos === 1 ? "Hemos reservado 1 lugar para ti." : "Hemos reservado " + cupos + " lugares para ustedes.";
+    c.hidden = false;
+  }
+})();
+
+/* ---------- Música de fondo ----------
+   Archivo: cancion.mp3 en la misma carpeta (solo con derechos de uso).
+   Empieza al tocar el sello (los celulares exigen un toque para sonar)
+   y sigue sonando mientras el invitado recorre la invitación. */
+const audio = document.getElementById("audio");
+const btnMusica = document.getElementById("btn-musica");
+audio.volume = 0.6;
+function setMusica(on){
+  btnMusica.classList.toggle("mudo", !on);
+  btnMusica.setAttribute("aria-label", on ? "Pausar música" : "Reproducir música");
+}
+function sonar(){
+  audio.play().then(() => setMusica(true)).catch(() => setMusica(false));
+}
+/* Si el invitado cambia de app, la música se pausa; al volver, continúa */
+let pausadaPorSistema = false;
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && !audio.paused) { audio.pause(); pausadaPorSistema = true; }
+  else if (!document.hidden && pausadaPorSistema) { pausadaPorSistema = false; sonar(); }
+});
+
+/* ---------- Abrir el sobre ---------- */
+document.getElementById("sello").addEventListener("click", () => {
+  document.getElementById("sobre").classList.add("abierto");
+  document.body.classList.remove("cerrado");
+  sonar();
+});
+btnMusica.addEventListener("click", () => {
+  if (audio.paused) sonar(); else { audio.pause(); setMusica(false); }
+});
+
+function avisar(t){
+  const a = document.getElementById("aviso"); a.textContent = t; a.hidden = false;
+  clearTimeout(avisar.t); avisar.t = setTimeout(() => a.hidden = true, 2200);
+}
+
+/* ---------- Marco de cartela (forma de la referencia) ----------
+   Se dibuja un cuarto del contorno y se refleja para obtener la forma completa. */
+(function(){
+  const s = document.getElementById("marco-encaje");
+  const cx = 150, cy = 200;
+  const P0 = [150,18];
+  const segs = [
+    [[162,34],[182,44],[204,44]],
+    [[216,44],[224,52],[226,62]],
+    [[240,60],[252,68],[254,82]],
+    [[272,88],[281,104],[279,126]],
+    [[277,150],[263,170],[265,186]],
+    [[269,192],[276,196],[283,200]]
+  ];
+  const bz = (a,b,c,d,t) => { const u = 1-t; return u*u*u*a + 3*u*u*t*b + 3*u*t*t*c + t*t*t*d; };
+  const q = [P0]; let prev = P0;
+  for (const [c1,c2,e] of segs){
+    for (let i = 1; i <= 24; i++){ const t = i/24;
+      q.push([bz(prev[0],c1[0],c2[0],e[0],t), bz(prev[1],c1[1],c2[1],e[1],t)]); }
+    prev = e;
+  }
+  const abajo = q.slice(0,-1).reverse().map(([x,y]) => [x, 2*cy - y]);
+  const derecha = q.concat(abajo);
+  const izquierda = derecha.slice(1,-1).reverse().map(([x,y]) => [2*cx - x, y]);
+  const pts = derecha.concat(izquierda);
+  const d = "M" + pts.map(([x,y]) => x.toFixed(1) + " " + y.toFixed(1)).join("L") + "Z";
+  s.innerHTML = `
+    <defs>
+      <linearGradient id="oro-marco" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#EBD18C"/><stop offset=".35" stop-color="#B08A3A"/>
+        <stop offset=".6" stop-color="#E9CD86"/><stop offset="1" stop-color="#9C7A30"/>
+      </linearGradient>
+      <filter id="sombra" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#1E0A0E" flood-opacity=".45"/>
+      </filter>
+    </defs>
+    <path d="${d}" transform="translate(150 200) scale(1.075) translate(-150 -200)" fill="#F2E7DA" filter="url(#sombra)"/>
+    <path d="${d}" fill="#F5EDE3"/>
+    <g fill="none" stroke="#B79E92" stroke-width="1" opacity=".45" stroke-linecap="round">
+      <!-- rosa en línea, muy tenue -->
+      <path d="M172 214c-10-12-30-10-34 4s8 28 22 26 22-14 16-26c-5-9-18-10-22-2s4 14 10 10"/>
+      <path d="M150 234c-14 4-28 0-34-10M174 236c10 6 22 4 28-6"/>
+      <path d="M160 246c-4 20-14 40-30 56M136 280c-12-8-26-6-32 2 8 8 22 8 32-2zM146 266c10-10 24-10 30-2-8 8-22 8-30 2z"/>
+      <path d="M128 168c-8-14-6-30 6-38 4 14 2 28-6 38zM120 176c-16-4-28 2-32 12 14 2 26-2 32-12z"/>
+      <path d="M182 150c10-10 26-10 32 0-10 8-24 8-32 0zM196 186c14-2 24 6 26 16-12 2-22-4-26-16z"/>
+      <path d="M128 168c10 10 16 22 18 40"/>
+    </g>
+    <path d="${d}" fill="none" stroke="url(#oro-marco)" stroke-width="3"/>`;
+})();
+
+/* ---------- Festón entre panel oscuro y el siguiente ---------- */
+(function(){
+  let d = "M0 18V8";
+  for (let x = 0; x < 400; x += 20) d += ` Q${x+10} -2 ${x+20} 8`;
+  d += " V18Z";
+  document.getElementById("festón").setAttribute("d", d);
+})();
+
+/* ---------- Calendario del mes ---------- */
+(function(){
+  const cal = document.getElementById("cal");
+  const dows = ["Lu","Ma","Mi","Ju","Vi","Sá","Do"];
+  let h = dows.map(d => `<span class="dow">${d}</span>`).join("");
+  const primero = new Date(EVENTO.anio, EVENTO.mes, 1);
+  const desfase = (primero.getDay() + 6) % 7;            // lunes = 0
+  const diasMes = new Date(EVENTO.anio, EVENTO.mes + 1, 0).getDate();
+  const diasPrev = new Date(EVENTO.anio, EVENTO.mes, 0).getDate();
+  for (let i = desfase; i > 0; i--) h += `<span class="fuera">${diasPrev - i + 1}</span>`;
+  for (let d = 1; d <= diasMes; d++)
+    h += d === EVENTO.dia ? `<span class="dia-boda" aria-label="${d}, día de la boda">${d}</span>` : `<span>${d}</span>`;
+  const total = desfase + diasMes, resto = (7 - total % 7) % 7;
+  for (let d = 1; d <= resto; d++) h += `<span class="fuera">${d}</span>`;
+  cal.innerHTML = h;
+})();
+
+/* ---------- Dirección, mapa y formulario ---------- */
+(function(){
+  if (EVENTO.direccion) {
+    const d = document.getElementById("direccion-txt"); d.textContent = EVENTO.direccion; d.className = "";
+    const m = document.getElementById("mapa"); m.classList.add("con-mapa");
+    m.innerHTML = `<iframe title="Mapa de ${EVENTO.lugar}" loading="lazy" src="https://www.google.com/maps?q=${encodeURIComponent(EVENTO.lugar + ", " + EVENTO.direccion)}&output=embed"></iframe>`;
+  }
+  document.getElementById("btn-maps").href = EVENTO.mapsUrl ||
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(EVENTO.lugar + " " + EVENTO.direccion);
+  document.getElementById("btn-form").href = EVENTO.formularioUrl || "#confirmar";
+})();
+
+/* ---------- Cuenta regresiva ---------- */
+(function(){
+  const meta = new Date(EVENTO.inicioISO).getTime();
+  const el = ["d","h","m","s"].map(i => document.getElementById(i));
+  const p = n => String(n).padStart(2,"0");
+  function tick(){
+    let t = Math.max(0, meta - Date.now()) / 1000;
+    const d = Math.floor(t/86400); t -= d*86400;
+    const h = Math.floor(t/3600); t -= h*3600;
+    const m = Math.floor(t/60), s = Math.floor(t - m*60);
+    el[0].textContent = p(d); el[1].textContent = p(h); el[2].textContent = p(m); el[3].textContent = p(s);
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ---------- Agregar al calendario ---------- */
+(function(){
+  const lugar = EVENTO.lugar + (EVENTO.direccion ? ", " + EVENTO.direccion : "");
+  const det = "Ceremonia 3:00 p. m. · Recepción 5:00 p. m. · Vestimenta formal.";
+  document.getElementById("btn-gcal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + encodeURIComponent(EVENTO.titulo) + "&dates=" + EVENTO.inicioUTC + "/" + EVENTO.finUTC +
+    "&details=" + encodeURIComponent(det) + "&location=" + encodeURIComponent(lugar);
+  document.getElementById("btn-ics").addEventListener("click", () => {
+    const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Invitaciones//Boda//ES","BEGIN:VEVENT",
+      "UID:boda-nicolas-liz-20261207@invitacion",
+      "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g,"").split(".")[0] + "Z",
+      "DTSTART:" + EVENTO.inicioUTC, "DTEND:" + EVENTO.finUTC,
+      "SUMMARY:" + EVENTO.titulo, "LOCATION:" + lugar, "DESCRIPTION:" + det,
+      "BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:Mañana es la boda de Nicolás & Liz","END:VALARM",
+      "END:VEVENT","END:VCALENDAR"].join("\r\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ics], {type:"text/calendar"}));
+    a.download = "boda-nicolas-liz.ics"; document.body.appendChild(a); a.click(); a.remove();
+  });
+})();
+
+/* ---------- Fotos: marcador si aún no están ---------- */
+document.querySelectorAll(".foto img").forEach(img => {
+  const marcar = () => img.parentElement.classList.add("sin-foto");
+  if (img.complete && !img.naturalWidth) marcar();
+  img.addEventListener("error", marcar);
+});
+
+/* ---------- Aparición suave al hacer scroll ---------- */
+(function(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  document.documentElement.classList.add("anim");
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+  }), {threshold:.1});
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+})();
+
+</script>
+</body>
+</html>
