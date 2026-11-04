@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nicolás & Liz · Nos casamos">
 <meta property="og:description" content="Lunes 7 de diciembre de 2026 · La Marqueza. Te esperamos para celebrar nuestro amor.">
-<meta property="og:image" content="vista-previa.jpg">
+<meta property="og:image" content="https://padovil.github.io/invitacion1/vista-previa.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="theme-color" content="#3E1820">
@@ -242,7 +242,9 @@ p{margin:0 0 1rem}
 /* ===================== PANEL FOTOS ===================== */
 .galeria{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.25rem}
 .galeria figure{margin:0}
-.galeria figure:nth-child(2){margin-top:2.2rem}
+.galeria figure.grande{grid-column:1 / -1}
+.galeria figure.grande .foto{aspect-ratio:4/4.6}
+.galeria figure:nth-child(3){margin-top:2.2rem}
 .foto{
   position:relative;aspect-ratio:4/5;max-width:100%;border-radius:999px 999px 10px 10px;overflow:hidden;
   background:var(--malva);border:5px solid var(--papel);outline:1px solid var(--linea);
@@ -575,8 +577,9 @@ p{margin:0 0 1rem}
     <h2 class="titulo">Nosotros</h2>
     <svg class="mono" viewBox="0 0 110 70" aria-hidden="true"><use href="#moño"/></svg>
     <div class="galeria">
-      <figure><div class="foto"><img src="foto-1.jpg" alt="Nicolás y Liz, sesión de fotos antes de la boda" loading="lazy"><span class="ph">FOTO 1<br>foto-1.jpg<br>vertical 1080×1350</span></div></figure>
-      <figure><div class="foto"><img src="foto-2.jpg" alt="Nicolás y Liz juntos" loading="lazy"><span class="ph">FOTO 2<br>foto-2.jpg<br>vertical 1080×1350</span></div></figure>
+      <figure class="grande"><div class="foto"><img src="foto-3.jpg" alt="Nicolás y Liz mirándose y sonriendo" loading="lazy" style="object-position:50% 30%"><span class="ph">foto-3.jpg</span></div></figure>
+      <figure><div class="foto"><img src="foto-1.jpg" alt="Nicolás besa la frente de Liz en el campo" loading="lazy"><span class="ph">foto-1.jpg</span></div></figure>
+      <figure><div class="foto"><img src="foto-2.jpg" alt="Nicolás y Liz caminando de la mano entre flores" loading="lazy" style="object-position:50% 65%"><span class="ph">foto-2.jpg</span></div></figure>
     </div>
   </section>
 
