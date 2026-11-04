@@ -793,18 +793,27 @@ function avisar(t){
   const det = "Ceremonia 3:00 p. m. · Recepción 5:00 p. m. · Vestimenta formal.";
   document.getElementById("btn-gcal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
     "&text=" + encodeURIComponent(EVENTO.titulo) + "&dates=" + EVENTO.inicioUTC + "/" + EVENTO.finUTC +
-    "&details=" + encodeURIComponent(det) + "&location=" + encodeURIComponent(lugar);
+    "&details=" + encodeURIComponent(det + (EVENTO.mapsUrl ? "\nCómo llegar: " + EVENTO.mapsUrl : "")) + "&location=" + encodeURIComponent(lugar);
+  /* Texto seguro para .ics: escapa comas, punto y coma y barras (norma iCalendar) */
+  const esc = t => String(t).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");
   document.getElementById("btn-ics").addEventListener("click", () => {
-    const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Invitaciones//Boda//ES","BEGIN:VEVENT",
+    const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Invitaciones//Boda//ES","CALSCALE:GREGORIAN","METHOD:PUBLISH","BEGIN:VEVENT",
       "UID:boda-nicolas-liz-20261207@invitacion",
       "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g,"").split(".")[0] + "Z",
       "DTSTART:" + EVENTO.inicioUTC, "DTEND:" + EVENTO.finUTC,
-      "SUMMARY:" + EVENTO.titulo, "LOCATION:" + lugar, "DESCRIPTION:" + det,
-      "BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:Mañana es la boda de Nicolás & Liz","END:VALARM",
+      "SUMMARY:" + esc(EVENTO.titulo), "LOCATION:" + esc(lugar),
+      "DESCRIPTION:" + esc(det + (EVENTO.mapsUrl ? "\nCómo llegar: " + EVENTO.mapsUrl : "")),
+      ...(EVENTO.mapsUrl ? ["URL:" + EVENTO.mapsUrl] : []),
+      "BEGIN:VALARM","TRIGGER:-P1D","ACTION:DISPLAY","DESCRIPTION:" + esc("Mañana es la boda de Nicolás & Liz"),"END:VALARM",
       "END:VEVENT","END:VCALENDAR"].join("\r\n");
+    /* iPhone/iPad: abrir directo en la app Calendario. Resto: descargar el archivo. */
+    const esIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    if (esIOS) { location.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics); return; }
+    const url = URL.createObjectURL(new Blob([ics], {type:"text/calendar;charset=utf-8"}));
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([ics], {type:"text/calendar"}));
-    a.download = "boda-nicolas-liz.ics"; document.body.appendChild(a); a.click(); a.remove();
+    a.href = url; a.download = "boda-nicolas-liz.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
   });
 })();
 
