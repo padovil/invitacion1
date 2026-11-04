@@ -7,4 +7,4 @@ Invitación web para la boda del lunes 7 de diciembre de 2026 en La Marqueza.
 
 Link personalizado por invitado: `?para=Familia%20Pérez&cupos=2`
 
-Pendientes: dirección y link de Maps, link del formulario de confirmación, `foto-1.jpg` y `foto-2.jpg` (vertical 1080×1350), `vista-previa.jpg` (1200×630).
+Pendientes: link del formulario de confirmación, `foto-1.jpg` y `foto-2.jpg` (vertical 1080×1350), `vista-previa.jpg` (1200×630).

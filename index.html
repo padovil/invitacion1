@@ -629,8 +629,9 @@ const EVENTO = {
   finUTC:    "20261208T040000Z",   // asumido: 11:00 p. m.
   anio: 2026, mes: 11, dia: 7,     // mes en base 0 (11 = diciembre)
   lugar: "La Marqueza",
-  direccion: "",                     // [PENDIENTE]
-  mapsUrl: "",                       // [PENDIENTE]
+  direccion: "La Calera, Cundinamarca",   // confirmar con la pareja
+  coordenadas: "4.7714794,-73.9799389",  // Hacienda Márquez (Google Maps)
+  mapsUrl: "https://maps.app.goo.gl/EBWsDJNrXgrXSqiQ8",
   formularioUrl: ""                  // [PENDIENTE]
 };
 
@@ -764,7 +765,7 @@ function avisar(t){
   if (EVENTO.direccion) {
     const d = document.getElementById("direccion-txt"); d.textContent = EVENTO.direccion; d.className = "";
     const m = document.getElementById("mapa"); m.classList.add("con-mapa");
-    m.innerHTML = `<iframe title="Mapa de ${EVENTO.lugar}" loading="lazy" src="https://www.google.com/maps?q=${encodeURIComponent(EVENTO.lugar + ", " + EVENTO.direccion)}&output=embed"></iframe>`;
+    m.innerHTML = `<iframe title="Mapa de ${EVENTO.lugar}" loading="lazy" src="https://www.google.com/maps?q=${encodeURIComponent(EVENTO.coordenadas || (EVENTO.lugar + ", " + EVENTO.direccion))}&z=15&output=embed"></iframe>`;
   }
   document.getElementById("btn-maps").href = EVENTO.mapsUrl ||
     "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(EVENTO.lugar + " " + EVENTO.direccion);
