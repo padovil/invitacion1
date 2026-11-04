@@ -179,8 +179,8 @@ p{margin:0 0 1rem}
 .oval .cuenta small,.oval .cuenta i{color:var(--oro-claro)}
 .oval .corazon{color:var(--oro)}
 .flor-crema{
-  position:absolute;left:-14%;bottom:-2%;width:64%;height:auto;
-  filter:drop-shadow(0 6px 8px rgba(40,15,20,.25));
+  position:absolute;left:-16%;bottom:-6%;width:62%;height:auto;
+  filter:drop-shadow(0 4px 6px rgba(40,15,20,.2));
 }
 .oval{position:relative;width:min(270px,78vw);aspect-ratio:3/4;margin:0 auto;max-width:100%}
 .oval > svg:first-child{position:absolute;inset:0;width:100%;height:100%}
@@ -305,35 +305,46 @@ p{margin:0 0 1rem}
 <!-- ========== Símbolos SVG reutilizables ========== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <!-- Ramillete grabado (estilo toile): rosa central, hojas con rayado y botones -->
-    <symbol id="ramo" viewBox="0 0 160 80">
-      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <g id="ramo-lado" stroke-width="1.1">
-          <path d="M14 52C36 46 54 45 66 46"/>
-          <path d="M36 47C31 34 19 29 7 31c6 11 17 17 29 16z"/>
-          <path d="M36 47C28 40 19 35 8 31" stroke-width=".7"/>
-          <path d="M13 34l2 4M17 33l2 5M21 34l2 5M25 36l2 5M29 39l1 4" stroke-width=".5"/>
-          <path d="M50 45c-4 12-16 18-27 16 4-10 15-16 27-16z"/>
-          <path d="M50 45c-8 7-17 12-26 16" stroke-width=".7"/>
-          <path d="M31 55l3-4M36 54l2-5M41 51l2-4" stroke-width=".5"/>
-          <path d="M58 44c-3-8 0-15 6-18 2 7 0 13-6 18z"/>
-          <path d="M61 30c-1-3 0-5 3-6M58 44v-4" stroke-width=".7"/>
-          <circle cx="12" cy="53" r="2.4"/>
-          <path d="M8 56l2-1M7 52l3 0" stroke-width=".6"/>
-          <path d="M26 44c-2-4-6-6-10-5M24 58c-3 2-5 6-5 9" stroke-width=".8"/>
-        </g>
-        <use href="#ramo-lado" transform="translate(160 0) scale(-1 1)"/>
-        <g stroke-width="1.1">
-          <!-- rosa: pétalos exteriores abiertos -->
-          <path d="M70 47c-6-3-8-10-5-16 4 1 8 4 9 9"/>
-          <path d="M90 47c6-3 8-10 5-16-4 1-8 4-9 9"/>
-          <path d="M68 47c3 7 8 10 13 10 6 0 10-4 12-10-5 3-10 4-13 3-4 0-8-1-12-3z"/>
-          <path d="M72 41c-1-7 3-13 9-14 6 0 10 5 9 12"/>
-          <path d="M78 41c-3-3-2-8 2-9 4-1 6 3 4 6-1 2-4 2-4 0" stroke-width=".9"/>
-          <path d="M74 44c3 2 9 2 13-1" stroke-width=".8"/>
-          <path d="M66 36l3 1M66 40l3 0M94 36l-3 1M94 40l-3 0M74 52l1-2M79 54v-2M85 53l-1-2" stroke-width=".45"/>
-          <path d="M85 27c2-3 5-4 7-3" stroke-width=".7"/>
-        </g>
+    <!-- ====== Flores estilo gouache: relleno vino, separación de pétalos en crema ====== -->
+    <g id="peonia" fill="currentColor" stroke="#F5EDE3" stroke-width="2.4" stroke-linejoin="round">
+      <!-- pétalos de atrás hacia adelante; la línea crema hace la separación -->
+      <path d="M44 52C46 18 86 0 120 6c30 6 40 28 32 48-24-12-76-16-108-2z"/>
+      <path d="M60 46C38 40 14 46 6 62c-6 12-2 22-4 30-2 18 8 36 24 48 16 10 40 8 54-2C66 120 58 90 60 46z"/>
+      <path d="M140 44c26-4 56 10 60 36 4 24-8 44-30 52-16 6-36 2-46-8 14-20 18-50 16-80z"/>
+      <path d="M30 130c-6 20 10 40 32 42 18 2 32-10 34-24-20 2-44-4-66-18z"/>
+      <path d="M66 140c-2 20 10 42 30 46 20 2 36-14 38-34 0-12-6-20-14-24-16 12-36 16-54 12z"/>
+      <path d="M64 54c6-18 32-26 52-20 16 6 24 20 20 34-16-10-50-14-72-14z"/>
+      <path d="M70 60C52 72 46 98 56 118c8 14 24 18 38 14-14-18-20-44-24-72z"/>
+      <path d="M122 62c22 6 34 28 28 50-6 16-22 24-38 20 12-18 16-46 10-70z"/>
+      <ellipse cx="100" cy="82" rx="16" ry="11" fill="#F5EDE3" stroke="none"/>
+      <path d="M90 84l-3-8M95 82l-1-9M100 82v-10M105 82l1-9M110 84l3-8M92 88l-6-3M108 88l6-3" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+      <path d="M80 64c-8 14-6 34 8 44 8 6 16 4 20-2-14-8-22-24-28-42z"/>
+      <path d="M124 68c6 14 2 32-10 40-6 4-12 2-14-2 12-8 20-22 24-38z"/>
+      <path d="M78 106c10 14 40 16 54-2-12 8-38 8-54 2z"/>
+      <g fill="none" stroke="#F5EDE3" stroke-opacity=".2" stroke-width=".8" stroke-linecap="round">
+        <path d="M14 78c14 2 26 8 36 16M10 104c14-2 28 0 40 6M168 70c-10 6-18 14-24 24M186 96c-14 0-26 4-36 10M90 10c4 8 8 16 10 24M126 12c-4 8-8 16-10 22M48 160c8-4 16-10 22-16M100 176c0-12 2-22 6-30M120 168c-4-8-6-16-6-24M62 86c4 10 8 18 14 26M138 90c-4 10-8 18-14 24"/>
+      </g>
+    </g>
+    <g id="hoja" fill="currentColor" stroke="#F5EDE3" stroke-width="1.4" stroke-linejoin="round">
+      <path d="M0 0C14-14 40-22 66-14c4 1 8 4 10 8-8 0-12 6-22 8C34 8 16 8 0 0z"/>
+      <path d="M3 0C22-8 46-12 72-7" fill="none" stroke-opacity=".35" stroke-width=".8"/>
+    </g>
+    <g id="boton" fill="currentColor" stroke="#F5EDE3" stroke-width="1.8" stroke-linejoin="round">
+      <path d="M0 0c-14 6-18 24-9 34 6 6 14 6 20 0 9-10 4-28-11-34z"/>
+      <path d="M0 2c-6 8-8 20-4 30M1 2c6 8 8 20 3 30" fill="none" stroke-width="1.4"/>
+      <path d="M-8 2c4-6 12-6 16 0" fill="none" stroke-width="1.4"/>
+    </g>
+    <!-- Ramillete horizontal (separadores) -->
+    <symbol id="ramo" viewBox="0 0 200 100">
+      <g color="#6E1F2C" style="color:currentColor">
+        <path d="M10 74C48 62 80 56 100 54M190 62c-36-4-66-8-90-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        <use href="#hoja" transform="translate(74 57) rotate(196) scale(.72)"/>
+        <use href="#hoja" transform="translate(56 62) rotate(150) scale(.6)"/>
+        <use href="#hoja" transform="translate(38 67) rotate(208) scale(.5)"/>
+        <use href="#hoja" transform="translate(126 55) rotate(-18) scale(.72)"/>
+        <use href="#hoja" transform="translate(146 57) rotate(22) scale(.58)"/>
+        <use href="#boton" transform="translate(188 62) rotate(-12) scale(.5)"/>
+        <use href="#peonia" transform="translate(56 6) scale(.44)"/>
       </g>
     </symbol>
     <!-- Magnolia en línea (base para relieve y flor crema) -->
@@ -436,7 +447,7 @@ p{margin:0 0 1rem}
       </g>
     </svg>
     <div class="arco-cal">
-      <svg class="mono" viewBox="0 0 160 80" aria-hidden="true"><use href="#ramo"/></svg>
+      <svg class="mono" viewBox="0 0 200 100" aria-hidden="true"><use href="#ramo"/></svg>
       <h2 class="titulo">Fecha</h2>
       <p class="fecha-num">07.12.2026</p>
       <p class="mes">Diciembre 2026</p>
@@ -472,38 +483,18 @@ p{margin:0 0 1rem}
         </div>
         <svg class="corazon" viewBox="0 0 10 10" aria-hidden="true"><use href="#cor"/></svg>
       </div>
-      <!-- Rosa grabada (estilo toile) con relleno crema para que se lea sobre el terciopelo -->
-      <svg class="flor-crema" viewBox="0 0 180 160" aria-hidden="true">
-        <g stroke="#6E1F2C" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" fill="#F5EDE3">
-          <!-- tallo y hojas -->
-          <path d="M70 118c-4 14-12 26-24 36" fill="none"/>
-          <path d="M140 70c-10 10-22 18-34 22" fill="none"/>
-          <path d="M32 110c-16 4-26 18-26 34 16 0 30-10 34-28z"/>
-          <path d="M104 106c18-2 34 6 42 20-16 6-34 0-42-20z"/>
-          <path d="M60 42c-6-16 2-30 14-36 6 14 0 28-14 36z"/>
-          <path d="M140 70c-4-10 2-18 10-20 4 8 0 16-10 20z"/>
-          <!-- pétalos -->
-          <path d="M38 92c-10-20 4-42 28-44 6 10 4 24-6 34-8 8-14 10-22 10z"/>
-          <path d="M106 92c10-20-4-42-28-44-6 10-4 24 6 34 8 8 14 10 22 10z"/>
-          <path d="M50 82c-2-16 8-28 22-28s24 12 22 28c-6 6-14 8-22 8s-16-2-22-8z"/>
-          <path d="M38 90c4 18 18 28 34 28s30-10 34-28c-12 8-24 10-34 10s-24-2-34-10z"/>
-        </g>
-        <g stroke="#6E1F2C" stroke-linecap="round" fill="none">
-          <!-- espiral del centro -->
-          <path d="M73 62c-8 0-12 8-8 14 4 5 12 4 13-2 1-5-4-7-7-4-2 2 0 5 2 4" stroke-width="1.2"/>
-          <path d="M60 70c2-6 6-10 12-12M86 70c-2-6-6-10-12-12" stroke-width=".8"/>
-          <!-- nervaduras -->
-          <path d="M32 112C22 120 14 132 8 143M104 108c14 4 28 10 40 18M60 40c2-12 6-22 13-32M140 69c2-6 5-11 9-17" stroke-width=".8"/>
-          <!-- rayado de grabado -->
-          <g stroke-width=".55">
-            <path d="M16 128l6 4M20 122l6 4M25 117l5 4M12 135l6 3"/>
-            <path d="M118 108l-2 5M126 110l-2 6M134 114l-2 6M112 107l-2 4"/>
-            <path d="M42 80l5-2M41 86l6-1M44 72l5-1M47 65l4 0"/>
-            <path d="M102 80l-5-2M103 86l-6-1M100 72l-5-1M97 65l-4 0"/>
-            <path d="M52 106l2-4M60 110l1-4M68 112l0-4M76 112l0-4M84 110l-1-4M92 106l-2-4"/>
-            <path d="M64 30l5 2M66 22l4 2M62 37l5 1"/>
-          </g>
-        </g>
+      <!-- Peonía con tallo, hojas y botón colgante (estilo gouache) -->
+      <svg class="flor-crema" viewBox="0 0 220 260" aria-hidden="true" style="color:#6E1F2C">
+        <path d="M100 128c4 30-4 60-30 128M92 178c26-14 50-8 64 14M150 52c-20 10-36 26-44 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        <use href="#hoja" transform="translate(150 52) rotate(-58) scale(.85)"/>
+        <use href="#hoja" transform="translate(150 52) rotate(-8) scale(.75)"/>
+        <use href="#hoja" transform="translate(130 70) rotate(18) scale(.7)"/>
+        <use href="#hoja" transform="translate(98 170) rotate(-40) scale(.85)"/>
+        <use href="#hoja" transform="translate(86 214) rotate(205) scale(.8)"/>
+        <use href="#hoja" transform="translate(84 226) rotate(250) scale(.6)"/>
+        <use href="#hoja" transform="translate(130 180) rotate(70) scale(.7)"/>
+        <use href="#boton" transform="translate(156 194) rotate(8) scale(.95)"/>
+        <use href="#peonia" transform="translate(4 20) scale(.9)"/>
       </svg>
     </div>
     <div class="botones">
@@ -601,7 +592,7 @@ p{margin:0 0 1rem}
   <!-- ===================== FOTOS ===================== -->
   <section class="panel reveal tx-papel">
     <h2 class="titulo">Nosotros</h2>
-    <svg class="mono" viewBox="0 0 160 80" aria-hidden="true"><use href="#ramo"/></svg>
+    <svg class="mono" viewBox="0 0 200 100" aria-hidden="true"><use href="#ramo"/></svg>
     <div class="galeria">
       <figure class="grande"><div class="foto"><img src="foto-3.jpg" alt="Nicolás y Liz mirándose y sonriendo" loading="lazy" style="object-position:50% 30%"><span class="ph">foto-3.jpg</span></div></figure>
       <figure><div class="foto"><img src="foto-1.jpg" alt="Nicolás besa la frente de Liz en el campo" loading="lazy"><span class="ph">foto-1.jpg</span></div></figure>
