@@ -57,8 +57,14 @@ document.addEventListener("visibilitychange", () => {
 
 /* ---------- Abrir el sobre ---------- */
 document.getElementById("sello").addEventListener("click", () => {
-  document.getElementById("sobre").classList.add("abierto");
+  const sobre = document.getElementById("sobre"), principal = document.getElementById("contenido");
+  sobre.classList.add("abierto");
   document.body.classList.remove("cerrado");
+  /* El sobre deja de recibir foco y la invitación queda disponible para teclado y lectores de pantalla */
+  sobre.inert = true;
+  principal.inert = false;
+  btnMusica.inert = false;
+  principal.focus({preventScroll:true});
   sonar();
 });
 btnMusica.addEventListener("click", () => {

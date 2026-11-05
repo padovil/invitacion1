@@ -121,7 +121,7 @@ body{
 body.cerrado{overflow:hidden}
 img{max-width:100%;display:block}
 a{color:var(--terciopelo)}
-:focus-visible{outline:2px solid var(--oro);outline-offset:3px;border-radius:4px}
+:focus-visible{outline:2px solid var(--terciopelo);outline-offset:3px;border-radius:4px}
 svg{display:block}
 
 /* Contenedor de paneles */
@@ -251,7 +251,7 @@ p{margin:0 0 1rem}
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;
   padding:.7rem 1.3rem;border-radius:999px;font:600 .82rem/1 var(--f-body);letter-spacing:.12em;
   text-transform:uppercase;text-decoration:none;cursor:pointer;border:1.5px solid var(--terciopelo);
-  transition:background .2s,color .2s;
+  transition:background-color .2s,color .2s,border-color .2s;
 }
 .btn svg{width:17px;height:17px;flex:none}
 .btn-lleno{background:var(--terciopelo);color:var(--papel)}
@@ -351,6 +351,30 @@ p{margin:0 0 1rem}
   .sobre.abierto{transform:none}
   .anim .reveal{opacity:1;transform:none;transition:none}
 }
+
+/* ===================== ACCESIBILIDAD Y USO TÁCTIL =====================
+   (revisión con las Web Interface Guidelines de Vercel) */
+html{scroll-padding-bottom:calc(84px + env(safe-area-inset-bottom, 0px));-webkit-tap-highlight-color:rgba(110,31,44,.14)}
+a,button,summary,label,select,input{touch-action:manipulation}
+p{text-wrap:pretty}
+[id]{scroll-margin-top:1rem}
+/* Enlace para saltar a la confirmación: aparece solo al navegar con teclado */
+.saltar{
+  position:absolute;z-index:40;left:max(16px, env(safe-area-inset-left, 0px));top:calc(8px + env(safe-area-inset-top, 0px));
+  padding:.75rem 1.1rem;background:var(--terciopelo);color:var(--papel);font:600 .85rem/1 var(--f-body);text-decoration:none;
+  transform:translateY(-200%);
+}
+.saltar:focus-visible{transform:none;outline-color:var(--terciopelo)}
+/* El anillo de foco se ve también sobre los fondos oscuros */
+.sobre :focus-visible,.p-nombres :focus-visible,.oscuro :focus-visible,.arco-final :focus-visible,.oval :focus-visible{outline-color:var(--papel)}
+.btn-musica{transition:background-color .2s, color .2s}
+.btn-musica:hover{background:var(--vino)}
+.btn-musica:focus-visible{outline-color:var(--terciopelo);box-shadow:0 0 0 3px var(--papel)}
+fieldset.campo{border:0;margin:0 0 1rem;padding:0;min-width:0}
+fieldset.campo legend{padding:0;margin-bottom:.35rem}
+.encaje h1.dentro{margin:0;font-weight:400;font-size:inherit}
+.paneles:focus-visible{outline-offset:-4px}
+.btn-musica:focus-visible{outline-color:var(--oro-claro);box-shadow:none}
 </style>
 </head>
 <body class="cerrado">
@@ -376,7 +400,7 @@ p{margin:0 0 1rem}
 </svg>
 
 <!-- ===================== SOBRE ===================== -->
-<div class="sobre tx-terciopelo" id="sobre" role="dialog" aria-label="Invitación cerrada">
+<div class="sobre tx-terciopelo" id="sobre" role="dialog" aria-modal="true" aria-label="Invitación cerrada">
   <svg class="textura" aria-hidden="true">
     <defs>
       <pattern id="hojas" width="380" height="460" patternUnits="userSpaceOnUse">
@@ -428,7 +452,8 @@ p{margin:0 0 1rem}
   </div>
 </div>
 
-<main class="paneles">
+<main class="paneles" id="contenido" tabindex="-1" inert>
+  <a class="saltar" href="#confirmar">Ir a confirmar asistencia</a>
 
   <!-- ===================== NOMBRES ===================== -->
   <section class="panel p-nombres tx-terciopelo" aria-label="Nicolás y Liz">
@@ -436,11 +461,11 @@ p{margin:0 0 1rem}
     <p class="sub" style="position:relative">Nos casamos</p>
     <div class="encaje">
       <svg class="marco" id="marco-encaje" viewBox="0 0 300 400" aria-hidden="true"></svg>
-      <div class="dentro">
-        <h1 class="nombres">Nicolás</h1>
-        <span class="amp">&amp;</span>
-        <p class="nombres">Liz</p>
-      </div>
+      <h1 class="dentro" aria-label="Nicolás y Liz" translate="no">
+        <span class="nombres">Nicolás</span>
+        <span class="amp" aria-hidden="true">&amp;</span>
+        <span class="nombres">Liz</span>
+      </h1>
     </div>
     <p class="frase">“Así que no son ya más dos, sino una sola carne; por tanto, lo que Dios juntó, no lo separe el hombre.”</p>
     <p class="cita">Mateo 19:6</p>
@@ -461,7 +486,7 @@ p{margin:0 0 1rem}
       <h2 class="titulo">Fecha</h2>
       <p class="fecha-num">07.12.2026</p>
       <p class="mes">Diciembre 2026</p>
-      <div class="cal" id="cal" aria-label="Calendario de diciembre de 2026, marcado el lunes 7"></div>
+      <div class="cal" id="cal" role="img" aria-label="Calendario de diciembre de 2026, marcado el lunes 7"></div>
     </div>
   </section>
 
@@ -485,7 +510,7 @@ p{margin:0 0 1rem}
       </svg>
       <div class="dentro">
         <h2 class="titulo">Faltan</h2>
-        <div class="cuenta" role="timer">
+        <div class="cuenta" role="timer" aria-label="Tiempo que falta para la boda">
           <div><b id="d">--</b><small>días</small></div><i>:</i>
           <div><b id="h">--</b><small>hrs</small></div><i>:</i>
           <div><b id="m">--</b><small>min</small></div><i>:</i>
@@ -535,7 +560,7 @@ p{margin:0 0 1rem}
     <h2 class="titulo">Itinerario</h2>
     <div class="itin">
       <div class="hito">
-        <p class="hora">3:00 <small>p. m.</small></p>
+        <p class="hora">3:00&nbsp;<small>p.&nbsp;m.</small></p>
         <p>Ceremonia</p>
       </div>
       <!-- velas con moño (ceremonia) -->
@@ -547,7 +572,7 @@ p{margin:0 0 1rem}
         <path d="M45 52c-5-4-10-4-12-1 3 3 8 3 12 1zM45 52c5-4 10-4 12-1-3 3-8 3-12 1z"/>
       </svg>
       <div class="hito">
-        <p class="hora">5:00 <small>p. m.</small></p>
+        <p class="hora">5:00&nbsp;<small>p.&nbsp;m.</small></p>
         <p>Recepción</p>
       </div>
       <!-- brindis -->
@@ -569,7 +594,7 @@ p{margin:0 0 1rem}
       <div class="detalle">
         <h3>Vestimenta</h3>
         <p>Formal. Estos son los tonos de nuestra boda, por si quieres inspirarte:</p>
-        <div class="paleta" aria-label="Vino, malva, beige, crema y dorado">
+        <div class="paleta" role="img" aria-label="Vino, malva, beige, crema y dorado">
           <i style="background:#5A2430"></i><i style="background:#C2ADA3"></i><i style="background:#E8DBCC"></i><i style="background:#F5EDE3"></i><i style="background:#C9A55C"></i>
         </div>
       </div>
@@ -621,17 +646,17 @@ p{margin:0 0 1rem}
         <path d="M98 24c14 0 24 6 50 4"/>
         <path d="M64 11l-3-4h6zM80 11l-3-4h6z" fill="currentColor"/>
       </svg>
-      <p class="firma">Nicolás &amp; Liz</p>
+      <p class="firma" translate="no">Nicolás &amp; Liz</p>
     </div>
   </footer>
 </main>
 
-<button class="btn-musica mudo" id="btn-musica" type="button" aria-label="Reproducir música">
+<button class="btn-musica mudo" id="btn-musica" type="button" inert aria-label="Reproducir música">
   <svg class="ic-on" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>
   <svg class="ic-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 17V6l10-2v11" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6.5" cy="17" r="2.5" fill="currentColor"/><circle cx="16.5" cy="15" r="2.5" fill="currentColor"/></svg>
 </button>
 <audio id="audio" src="cancion.mp3" loop preload="auto"></audio>
-<div class="aviso" id="aviso" hidden></div>
+<div class="aviso" id="aviso" role="status" hidden></div>
 
 </body>
 </html>
